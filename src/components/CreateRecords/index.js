@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
@@ -7,16 +8,16 @@ import styles from "./styles";
 
 const BtnConfig = [
   {
-    label: "RESET",
+    label: "Add",
     id: 1
-  },
-  {
-    label: "PRESET SAMPLES",
-    id: 2
   }
 ];
 
-class BtnPanel extends React.Component {
+class CreateRecords extends React.Component {
+  state = {
+    name: ""
+  };
+
   componentDidMount() {}
 
   componentWillUnmount() {}
@@ -25,11 +26,25 @@ class BtnPanel extends React.Component {
     console.log("clicked " + id);
   };
 
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
-      <div>
+      <div className={classes.wrapper}>
+        <form className={classes.container} noValidate autoComplete="off">
+          <TextField
+            id="standard-name"
+            label="Name"
+            className={classes.textField}
+            value={this.state.name}
+            onChange={this.handleChange("name")}
+            margin="normal"
+          />
+        </form>
         {BtnConfig.map(c => (
           <Button
             size="small"
@@ -49,4 +64,4 @@ class BtnPanel extends React.Component {
 export default compose(
   withTheme(),
   withStyles(styles)
-)(BtnPanel);
+)(CreateRecords);

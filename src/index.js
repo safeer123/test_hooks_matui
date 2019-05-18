@@ -5,6 +5,7 @@ import "typeface-roboto";
 
 import BtnPanel from "./components/BtnPanel";
 import Content from "./components/Content";
+import CreateRecords from "./components/CreateRecords";
 
 import "./styles.css";
 
@@ -16,6 +17,7 @@ function App() {
       </Typography>
       <BtnPanel />
       <Content />
+      <CreateRecords />
     </div>
   );
 }

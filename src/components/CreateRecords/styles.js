@@ -5,7 +5,12 @@ export default theme => ({
     padding: "10px",
     textAlign: "left"
   },
+  formWrapper: {
+    width: "300px"
+  },
   btnRoot: {
-    marginRight: "5px"
+    marginRight: "5px",
+    marginTop: "10px",
+    marginLeft: "240px"
   }
 });

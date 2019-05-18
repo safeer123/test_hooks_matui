@@ -1,4 +1,5 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
@@ -16,6 +17,9 @@ class Content extends React.Component {
 
     return (
       <div className={classes.contentRoot}>
+        <Typography variant="h6" gutterBottom>
+          Records
+        </Typography>
         <div className={classes.wrapper}>
           <CustomSelect
             options={[

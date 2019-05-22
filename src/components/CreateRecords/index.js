@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import { compose } from "recompose";
 
+import { RecordsContext } from "../../logic/recordsContext";
 import useInputControl from "../../logic/abstract/useInputControl";
 import styles from "./styles";
 
 const BtnConfig = [
   {
-    label: "Add",
+    label: "Delete",
     id: 1
+  },
+  {
+    label: "Add",
+    id: 2
   }
 ];
 
@@ -19,15 +24,40 @@ const CreateRecords = ({ classes }) => {
   const name = useInputControl("");
   const type = useInputControl("");
   const description = useInputControl("");
+  const { addRecord, deleteRecord } = useContext(RecordsContext);
 
   const handleClick = (id, e) => {
-    console.log("clicked " + id);
+    // console.log("clicked " + id);
+    switch (id) {
+      case 1:
+        deleteRecord(name.value, description.value, type.value);
+        break;
+      case 2:
+        addRecord(name.value, description.value, type.value);
+        break;
+      default:
+        break;
+    }
+    name.reset();
+    description.reset();
+    type.reset();
   };
-  const enableSubmit = name.value && type.value && description.value;
+  const enableSubmit = id => {
+    switch (id) {
+      case 1:
+        return name.value || type.value || description.value;
+      case 2:
+        return name.value && type.value && description.value;
+      default:
+        break;
+    }
+    return false;
+  };
+
   return (
     <div className={classes.wrapper}>
       <Typography variant="h6" gutterBottom>
-        Add New Record
+        Add/Delete Record
       </Typography>
       <form className={classes.container} noValidate autoComplete="off">
         <div className={classes.formWrapper}>
@@ -64,7 +94,7 @@ const CreateRecords = ({ classes }) => {
               color="primary"
               className={classes.btnRoot}
               onClick={e => handleClick(c.id, e)}
-              disabled={!enableSubmit}
+              disabled={!enableSubmit(c.id)}
               // disabled={!s.isEditable}
             >
               {c.label}
